@@ -1,45 +1,76 @@
 apiVersion: apps/v1
+
 kind: Deployment
+
 metadata:
+
   name: vprodb
+
   labels:
+
     app: vprodb
+
 spec:
+
   selector:
+
     matchLabels:
+
       app: vprodb
+
   replicas: 1
+
   template:
+
     metadata:
+
       labels:
+
         app: vprodb
+
     spec:
+
       containers:
-        - name: vprodb
-          image: vprofile/vprofiledb:V1
+
+        - name: vproob
+
+          image: vprofile/vprofiledb
+
           volumeMounts:
+
             - mountPath: /var/lib/mysql
-              name: vpro-db-data  # Corrected indentation and name placement
+
+              name: vpro-db-data
+
           ports:
+
             - name: vprodb-port
+
               containerPort: 3306
+
           env:
+
             - name: MYSQL_ROOT_PASSWORD
+
               valueFrom:
+
                 secretKeyRef:
+
                   name: app-secret
+
                   key: db-pass
+
       nodeSelector:
-        zone: us-east-1a
+
+        zone: us-east-1
+
       volumes:
-        - name: vpro-db-data  # Corrected indentation
+
+        - name: vpro-db-data
+
           awsElasticBlockStore:
+
             volumeID: vol-006f1051503098fbe
-            fsType: ext4  # Corrected spelling of fsType
-      initContainers:  # Moved the initContainers to the correct indentation level
-        - name: busybox
-          image: busybox:latest
-          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
-          volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: vpro-db-data  # Corrected indentation and name placement
+
+
+            fsType: ext4

@@ -36,7 +36,7 @@ spec:
           awsElasticBlockStore:
             volumeID: vol-006f1051503098fbe
             fsType: ext4  # Corrected spelling of fsType
-      initContainers:  # Added the initContainers section
+      initContainers:  # Moved the initContainers to the correct indentation level
         - name: busybox
           image: busybox:latest
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]

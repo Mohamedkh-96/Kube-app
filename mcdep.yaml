@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromc
+  labels:
+    app: vpromc
+spec:
+  selector:
+    matchLabels:
+      app: vpromc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vpromc
+    spec:
+      containers:
+        - name: vpromc  # Added a space after the hyphen for proper indentation
+          image: memcached  # Corrected the image name (typo in "memcahed")
+          ports:
+            - name: vpromc-port  # Corrected indentation for ports and added space after hyphen
+              containerPort: 11211

@@ -20,10 +20,10 @@ spec:
           ports:
             - name: vproapp-port
               containerPort: 8080
-      initContainers:  # Fixed the spelling of initContainers
+      initContainers:
         - name: init-mydb
           image: busybox
-          command: ['sh', '-c', 'until nslookup vprodb; do echo waiting for mydb; sleep 2; done;']
+          command: ['sh', '-c', 'n=0; until nslookup vprodb || [ $n -ge 5 ]; do echo "waiting for mydb"; n=$((n+1)); sleep 2; done;']
         - name: init-memcache
           image: busybox
-          command: ['sh', '-c', 'until nslookup vprocache01; do echo waiting for memcache; sleep 2; done;']
+          command: ['sh', '-c', 'n=0; until nslookup vprocache01 || [ $n -ge 5 ]; do echo "waiting for memcache"; n=$((n+1)); sleep 2; done;']
